@@ -9,8 +9,6 @@ from config import GtpConfig
 from tree_search import TreeSearchPredictor
 from game import new_board, flip, flip_move, read_move, write_move, make_move, print_board, winner, best_move
 
-size = 11
-
 class GtpException(Exception):
     pass
 
