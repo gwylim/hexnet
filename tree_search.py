@@ -110,7 +110,7 @@ class Edge:
         self.value_priority = -self.node.value / self.node.visits
         # We basically hack this for the swap move. Swap is not implemented, but the search behaves as if it does.
         if is_first_move:
-            value = min(value, -value)
-            self.value_priority = min(self.value_priority, -self.value_priority)
+            value = abs(value)
+            self.value_priority = -abs(self.value_priority)
         self.uct_priority = config.uct_factor * self.prior / (1 + self.node.visits)
         return value
