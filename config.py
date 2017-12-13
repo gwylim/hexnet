@@ -14,7 +14,7 @@ class SearchConfig:
         self.uct_factor = uct_factor
 
 class TrainConfig:
-    def __init__(self, size=11, batch_size=32, learning_rate=1e-2, momentum=0.9, epochs=50, history_size=100000, validation_ratio=10):
+    def __init__(self, size=11, batch_size=32, learning_rate=1e-2, momentum=0.9, epochs=100, history_size=100000, validation_ratio=10):
         self.size = size
         self.batch_size = batch_size
         self.learning_rate = learning_rate

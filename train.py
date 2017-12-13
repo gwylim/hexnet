@@ -4,7 +4,7 @@ import sys
 
 from keras.models import load_model
 from keras.optimizers import SGD
-from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.utils import Sequence
 
 from serialize import read_record, record_size
@@ -78,7 +78,7 @@ def train(config, model_file, data_file):
         validation_steps=len(validation_seq),
         callbacks=[
             ModelCheckpoint(model_file, save_best_only=True),
-            ReduceLROnPlateau(),
+            EarlyStopping(patience=5),
         ],
     )
 
