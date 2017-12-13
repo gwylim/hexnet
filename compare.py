@@ -3,7 +3,7 @@ import math
 
 from keras.models import load_model
 
-from game import print_board, winner, flip, flip_move, best_move, new_board
+from game import print_board, winner, flip, flip_move, best_move, new_board, sample_move
 from tree_search import TreeSearchPredictor
 from config import CompareConfig
 
@@ -16,10 +16,16 @@ def compare(config, model_file1, model_file2):
         move_index = 0
         predictors = [TreeSearchPredictor(config.search_config, model, new_board(config.size), True) for model in models]
         while not winner(predictors[0].board):
-            predictor = predictors[(games ^ move_index) & 1]
+            if move_index == 0:
+                predictor = predictors[1]
+            else:
+                predictor = predictors[(games ^ move_index) & 1]
             predictor.run(config.iterations)
             value, probabilities = predictor.predict()
-            move = best_move(probabilities)
+            if move_index < 3:
+                move = sample_move(probabilities)
+            else:
+                move = best_move(probabilities)
             for predictor in predictors:
                 predictor.make_move(move)
             if games & 1 == move_index & 1:
